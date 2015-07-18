@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Assigment 1</title>
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+attribute vec3 vColor;
+varying vec4 color;
+uniform float theta;
+
+void
+main()
+{
+	float d = sqrt(vPosition.x * vPosition.x + vPosition.y * vPosition.y);
+	float s = sin( d * theta ); 
+	float c = cos( d * theta ); 
+
+	gl_Position.x = -s * vPosition.y + c * vPosition.x; 
+	gl_Position.y =  s * vPosition.x + c * vPosition.y;
+    // gl_Position.z = 0.0; 
+    // gl_Position.w = 1.0; 
+    
+	//gl_Position = vPosition;	
+	color = vec4(vColor, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 color;
+
+void
+main()
+{
+    gl_FragColor = color;
+}
+</script>
+
+
+<script type="text/javascript" src="Common/webgl-utils.js"></script>
+<script type="text/javascript" src="Common/initShaders.js"></script>
+<script type="text/javascript" src="Common/MV.js"></script>
+<script type="text/javascript" src="gasket2.js"></script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="gasket2.js"></script>
+
+</head>   
+
+<body>
+<div>
+Twist 0% <input id="slider" min="0" max="5" step="0.1" value="0" type="range">
+ 100%
+ <button id="Direction">Change Twist Direction</button>
+</div>
+
+
+Subdivision Steps (between 0 and 9): <input type="number" id="Subdivision" min="0" max="9" step="1">
+<input id="submitSubs" type="Submit">
+	
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
